@@ -1,42 +1,52 @@
-## SQLite Lab
+## Su Zhang SQL Database Project - IDS706 Week#5 Assignment
 
-![4 17-etl-sqlite-RAW](https://github.com/nogibjj/sqlite-lab/assets/58792/b39b21b4-ccb4-4cc4-b262-7db34492c16d)
+## Purpose of the Project:
 
+* The purpose of this project is to build Python script that connects with a SQL database and performs CRUD operations. I used dataset on global alcohol consumption detailing each country's servings on beer, wine, and spirit as well as total liters of pure alcohol.  
 
+## Project Structure:
 
-### Lab:
+* `Makefile`: 
+    - **install**: install `requirements.txt`
+    - **test**: runs **pytest** for both mylib and main; runs all test files matching the pattern test_*.py
+    - **format**: format using black formatter
+    - **lint**: this project used **Ruff** instead of pylint for testing, which makes the process faster
 
-* Use an AI Assistant, but use a different one then you used from a previous lab (Anthropic's Claud, Bard, Copilot, CodeWhisperer, Colab AI, etc)
-* ETL-Query:  [E] Extract a dataset from URL, [T] Transform, [L] Load into SQLite Database and [Q] Query
-For the ETL-Query lab:
-* [E] Extract a dataset from a URL like Kaggle or data.gov. JSON or CSV formats tend to work well.
-* [T] Transform the data by cleaning, filtering, enriching, etc to get it ready for analysis.
-* [L] Load the transformed data into a SQLite database table using Python's sqlite3 module.
-* [Q] Write and execute SQL queries on the SQLite database to analyze and retrieve insights from the data.
+* `requirements.txt`: specify pinned packages needed for this project, including **ruff, requests**
 
-#### Tasks:
+* `mylib`: 
+    - **extract.py**: extract a dataset from a URL and save the content to the specified file path
+    - **transform_load**: load the csv file and insert into a new `SQLite3` database. In this project, the database is named as `Drinks.db`.
+    - **queryt**: performs CURD operations by creating four functions to **read, create, update, and delete data**
 
-* Fork this project and get it to run
-* Make the query more useful and not a giant mess that prints to screen
-* Convert the main.py into a command-line tool that lets you run each step independantly
-* Fork this project and do the same thing for a new dataset you choose
-* Make sure your project passes lint/tests and has a built badge
-* Include an architectural diagram showing how the project works
+* `main.py`: calling out functions in `mylib` folder, and execuate the `ETL-Query` pipeline - extract, transform, load data from url and query the database. 
 
-#### Reflection Questions
+* `test_main.py`: tests if the functions defined in `mylib` work normally
 
-* What challenges did you face when extracting, transforming, and loading the data? How did you overcome them?
-* What insights or new knowledge did you gain from querying the SQLite database?
-* How can SQLite and SQL help make data analysis more efficient? What are the limitations?
-* What AI assistant did you use and how did it compare to others you've tried? What are its strengths and weaknesses?
-* If you could enhance this lab, what would you add or change? What other data would be interesting to load and query?
+* `README.me`: project documentation that introduces purpose, data source, and structure
 
-##### Challenge Exercises
+* `githubactions`: `cicd.yml` defines workflows that specify the sequence of tasks to automate and also tests if the project works in several versions of Python.
 
-* Add more transformations to the data before loading it into SQLite. Ideas: join with another dataset, aggregate by categories, normalize columns.
-* Write a query to find correlated fields in the data. Print the query results nicely formatted.
-* Create a second table in the SQLite database and write a join query with the two tables.
-* Build a simple Flask web app that runs queries on demand and displays results.
-* Containerize the application using Docker so the database and queries can be portable
+* `devcontainer`: set up a development environment in Github Codespace, and Dockerfile to define the base environment
 
+* `Drinks.db`: SQL database loaded from data url
+
+## Description of CRUD Operations：
+
+* __`read`__ </br>:
+Reads and displays all records from the Drinks.db table. Returns a success message upon completion.
+
+* __`create`__ </br>:
+Inserts a new record into the Drinks.db table with predefined values for a country. Returns a success message upon successful insertion.
+
+* __`delete`__ </br>:
+Deletes rows from the Drinks.db table where the country is 'Albania'. Returns a success message after the deletion is committed.
+
+* __`update`__ </br>:
+Updates the beer_servings field for the country 'Yemen' in the Drinks.db table. Returns a success message after the update is committed.
+
+## Data Source and Reference
+
+* Data source: https://github.com/fivethirtyeight/data/tree/master/alcohol-consumption
+* https://github.com/nogibjj/sqlite-lab
 
