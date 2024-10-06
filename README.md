@@ -1,3 +1,5 @@
+[![CI](https://github.com/nogibjj/Su_Zhang_SQL_Database_Project/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/Su_Zhang_SQL_Database_Project/actions/workflows/cicd.yml)
+
 ## Su Zhang SQL Database Project - IDS706 Week#5 Assignment
 
 ## Purpose of the Project:
@@ -33,16 +35,16 @@
 
 ## Description of CRUD Operations：
 
-* __`read`__ </br>:
+* __`read`__ </br>
 Reads and displays all records from the Drinks.db table. Returns a success message upon completion.
 
-* __`create`__ </br>:
+* __`create`__ </br>
 Inserts a new record into the Drinks.db table with predefined values for a country. Returns a success message upon successful insertion.
 
-* __`delete`__ </br>:
+* __`delete`__ </br>
 Deletes rows from the Drinks.db table where the country is 'Albania'. Returns a success message after the deletion is committed.
 
-* __`update`__ </br>:
+* __`update`__ </br>
 Updates the beer_servings field for the country 'Yemen' in the Drinks.db table. Returns a success message after the update is committed.
 
 ## Data Source and Reference
