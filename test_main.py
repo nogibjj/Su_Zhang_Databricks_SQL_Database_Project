@@ -4,10 +4,8 @@ Test goes here
 
 import os
 from databricks import sql
-import pandas as pd
 from dotenv import load_dotenv
 from mylib.extract import extract
-from mylib.transform_load import load
 from mylib.query import query
 
 
