@@ -5,7 +5,7 @@
 ## Purpose of the Project:
 
 * This project is an extension on the `Week#5 Assignment - SQLite Project`. The purpose of this project is to build Python script that connects with Databricks database and perform a complex query containing aggregation, joins and sorting. I used two datasets: one is global alcohol consumption, and the other one is country-to-continent categorization. 
-* 
+
 
 ## Project Structure:
 
@@ -97,7 +97,7 @@ def load(dataset="data/drinks.csv", dataset2="data/countries.csv"):
 
     return "Load Success"
 ```
-* __`Queries`__ </br>: (1) Creates table of `Drinks` and `Countries` if not exist yet; (2) Insert values of two files to these two tables (I aggregated all the values in a list and run one query to save time)
+* __`Queries`__ </br> (1) Creates table of `Drinks` and `Countries` if not exist yet; (2) Insert values of two files to these two tables (I aggregated all the values in a list and run one query to save time)
 
 * `library/query.py`</br>
 ```Python
@@ -133,7 +133,7 @@ def query():
             else:
                 raise
 ```
-* __`First query`__ </br>: add a column in `Drinks` table named as "beer_percentage", which will store floating point numbers. 
+* __`First query`__ </br> add a column in `Drinks` table named as "beer_percentage", which will store floating point numbers. 
 
 ```Python
         c.execute(
@@ -145,7 +145,7 @@ def query():
         """
         )
 ```
-* __`Second query`__ </br>: calculates the percentage of beer servings among total servings as the beer_percentage numbers (for all the positive total servings)
+* __`Second query`__ </br> calculates the percentage of beer servings among total servings as the beer_percentage numbers (for all the positive total servings)
 
 ```Python
         
@@ -168,7 +168,7 @@ def query():
         c.close()
     return result
 ```
-* __`Third query`__ </br>: (1) **Joining** the `Drinks` and `Countries` tables on the country name. (2) Calculating the total beer servings and average beer percentage for each continent. (3) Grouping (**aggregating**) the results by continent and ordering (**sorting**) them by average beer percentage in descending order (from highest to lowest).
+* __`Third query`__ </br> (1) **Joining** the `Drinks` and `Countries` tables on the country name. (2) Calculating the total beer servings and average beer percentage for each continent. (3) Grouping (**aggregating**) the results by continent and ordering (**sorting**) them by average beer percentage in descending order (from highest to lowest).
 
 ## Data Source and Reference
 
