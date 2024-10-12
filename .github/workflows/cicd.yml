@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Set up Environment Variables
         run: |
-          echo "SERVER_HOSTNAME=${{ secrets.SERVER_HOST }}" >> $GITHUB_ENV
+          echo "SERVER_HOST=${{ secrets.SERVER_HOST }}" >> $GITHUB_ENV
           echo "HTTP_PATH=${{ secrets.HTTP_PATH }}" >> $GITHUB_ENV
           echo "ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}" >> $GITHUB_ENV
       - name: install packages
