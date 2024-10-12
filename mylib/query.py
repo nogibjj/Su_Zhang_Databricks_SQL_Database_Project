@@ -1,60 +1,54 @@
 """Query the database"""
 
-import sqlite3
+import os
+from databricks import sql
+from dotenv import load_dotenv
 
 
-def read_data():
-    """Read the database of the Drinks.db table"""
-    conn = sqlite3.connect("Drinks.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Drinks")
-    print(cursor.fetchall())
-    conn.close()
-    return "Read Success"
-
-
-def create_data():
-    """Create data record of Drinks.db"""
-    conn = sqlite3.connect("Drinks.db")
-    c = conn.cursor()
-    c.execute(
+def query():
+    """connections to Databricks database and execute a complex query
+    that contains joins, aggregation, and sorting"""
+    load_dotenv()
+    server_h = os.getenv("SERVER_HOST")
+    access_token = os.getenv("ACCESS_TOKEN")
+    http_path = os.getenv("HTTP_PATH")
+    with sql.connect(
+        server_hostname=server_h,
+        http_path=http_path,
+        access_token=access_token,
+    ) as connection:
+        c = connection.cursor()
+        try:
+            c.execute("ALTER TABLE Drinks ADD COLUMN beer_percentage FLOAT")
+            print("Column 'beer_percentage' added to Drinks table.")
+        except Exception as e:
+            if "FIELDS_ALREADY_EXISTS" in str(e):
+                print("Column 'beer_percentage' already exists in Drinks table.")
+            else:
+                raise
+        c.execute(
+            """
+            UPDATE Drinks
+            SET beer_percentage = 
+            (beer_servings / (beer_servings + wine_servings + spirit_servings)) * 100
+            WHERE (beer_servings + wine_servings + spirit_servings) > 0
         """
-        INSERT INTO Drinks
-        (country, beer_servings, 
-        spirit_servings, wine_servings, 
-        total_litres_of_pure_alcohol) 
-        VALUES ("Country1",90,20,16,4.5)
+        )
+        result = c.execute(
+            """
+            SELECT
+                C.continent,
+                SUM(D.beer_servings) AS total_beer_servings,
+                AVG(D.beer_percentage) AS avg_beer_percentage
+            FROM
+                Drinks D
+            JOIN
+                Countries C ON D.country = C.country
+            GROUP BY
+                C.continent
+            ORDER BY
+                avg_beer_percentage DESC
         """
-    )
-    c.execute("SELECT * FROM Drinks WHERE country ='Country1'")
-    print("create:", c.fetchall())
-    conn.close()
-    return "Create Success"
-
-
-def delete_data():
-    """delete certain rows of data from Drinks.dbs"""
-    conn = sqlite3.connect("Drinks.db")
-    c = conn.cursor()
-    c.execute("DELETE FROM Drinks WHERE country='Albania'")
-    print("rows deleted:", c.rowcount)
-    conn.commit()
-    conn.close()
-    return "Delete Success"
-
-
-def update_data():
-    """update certain rows of data from Drinks.db"""
-    conn = sqlite3.connect("Drinks.db")
-    c = conn.cursor()
-    c.execute(
-        """
-        UPDATE Drinks
-        SET beer_servings=100
-        WHERE country='Yemen'
-        """,
-    )
-    print("rows updated:", c.rowcount)
-    conn.commit()
-    conn.close()
-    return "Update Success"
+        ).fetchall()
+        c.close()
+    return result

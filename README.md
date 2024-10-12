@@ -1,6 +1,6 @@
 [![CI](https://github.com/nogibjj/Su_Zhang_SQL_Database_Project/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/Su_Zhang_SQL_Database_Project/actions/workflows/cicd.yml)
 
-## Su Zhang SQL Database Project - IDS706 Week#5 Assignment
+## Su Zhang Databricks SQL Database Project - IDS706 Week#6 Assignment
 
 ## Purpose of the Project:
 
@@ -31,7 +31,6 @@
 
 * `devcontainer`: set up a development environment in Github Codespace, and Dockerfile to define the base environment
 
-* `Drinks.db`: SQL database loaded from data url
 
 ## Description of CRUD Operations：
 
